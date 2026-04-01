@@ -6,7 +6,7 @@
 
         <section class="bg-white max-w-[600px] mx-auto p-10 pb-6 border-2 mt-4" >
 
-            <form action="{{ route('habit.update', $habit) }}" method="POST">
+            <form action="{{ route('habits.update', $habit) }}" method="POST">
                 @csrf
                 @method('PUT')
 
