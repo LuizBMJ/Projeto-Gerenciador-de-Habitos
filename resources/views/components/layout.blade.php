@@ -14,14 +14,19 @@
 
     @vite('resources/css/app.css')
 </head>
-<body class="bg-[#ffedd5] font-mono">
+<body class="bg-[#ffedd5] font-mono relative">
 
     {{-- HEADER --}}
     <x-header />
 
     {{ $slot }}
 
+    {{-- FOOTER --}}
     <x-footer />
 
+    {{-- TOAST --}}
+    <x-toast />
+
+    <script type="module" src="{{ Vite::asset('resources/js/app.js') }}"></script>
 </body>
 </html>
