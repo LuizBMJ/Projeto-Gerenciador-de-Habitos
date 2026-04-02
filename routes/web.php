@@ -19,7 +19,8 @@ Route::middleware('auth')->group(function() {
     Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
     // HABITS
-    Route::resource('dashboard/habits', HabitControler::class)->except('show');
-    Route::get('dashboard/habits/configurar', [HabitControler::class, 'settings'])->name('habits.settings');
-    Route::post('dashboard/habits/{habit}/toggle', [HabitControler::class, 'toggle'])->name('habits.toggle');
+    Route::resource('/dashboard/habits', HabitControler::class)->except('show');
+    Route::get('/dashboard/habits/historico', [HabitControler::class, 'history'])->name('habits.history');
+    Route::get('/dashboard/habits/configurar', [HabitControler::class, 'settings'])->name('habits.settings');
+    Route::post('/dashboard/habits/{habit}/toggle', [HabitControler::class, 'toggle'])->name('habits.toggle');
 });
