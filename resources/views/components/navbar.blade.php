@@ -12,7 +12,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-md border-r-2 border-habit-orange pr-2 hover:underline">
+                    <a href="#" class="text-md border-r-2 border-habit-orange pr-2 hover:underline hover:cursor-not-allowed">
                         Caléndario
                     </a>
                 </li>
