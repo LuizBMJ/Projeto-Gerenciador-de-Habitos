@@ -42,7 +42,7 @@
             </div>
         @endguest
 
-        <a class="habit-btn habit-shadow-lg" href="https://github.com/LuizBMJ" target="_blank">
+        <a class="habit-btn habit-shadow-lg" href="https://github.com/LuizBMJ/Projeto-Gerenciador-de-Habitos" target="_blank">
             <x-icons.github />
         </a>
         </div>
