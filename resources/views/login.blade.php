@@ -1,17 +1,17 @@
 <x-layout>
-    <main class="py-10" >
+    <main class="py-10 px-4">
 
-        <section
-            
-            class="bg-white max-w-[600px] mx-auto p-10 pb-6 mt-4 habit-shadow-lg" >
+        <section class="bg-white w-full max-w-md mx-auto px-6 py-8 sm:p-10 mt-4 habit-shadow-lg">
 
-            <h1 class="font-bold text-3xl">
+            <h1 class="font-bold text-2xl sm:text-3xl">
                 Faça Login
             </h1>
 
             <p>
                 Insira seus dados para acessar.
             </p>
+
+            <hr class="pb-4">
 
             <form 
                 action="{{ route('auth.login') }}" 
@@ -20,16 +20,18 @@
 
                 @csrf
 
+                <!-- EMAIL -->
                 <div class="flex flex-col gap-2 mb-4">
                     <label for="email">
                         Email
                     </label>
 
                     <input 
-                    type="email" 
-                    name="email"    
-                    placeholder="your@email.com"
-                    class="bg-white p-2 habit-shadow @error('email') border-red-500 @enderror"
+                        type="email" 
+                        name="email"    
+                        placeholder="seu@email.com"
+                        value="{{ old('email') }}"
+                        class="w-full bg-white p-2 habit-shadow @error('email') border-red-500 @enderror"
                     >
 
                     <p class="text-red-500 text-sm">
@@ -39,18 +41,35 @@
                     </p>
                 </div>
 
+                <!-- SENHA -->
                 <div class="flex flex-col gap-2 mb-4">
-
                     <label for="password">
-                        Password
+                        Senha
                     </label>
 
-                    <input 
-                    type="password" 
-                    name="password"    
-                    placeholder="password"
-                    class="bg-white p-2 habit-shadow @error('password') border-red-500 @enderror"
-                    >
+                    <div class="relative">
+                        <input 
+                            id="password"
+                            type="password" 
+                            name="password"    
+                            placeholder="senha"
+                            class="w-full bg-white p-2 pr-10 habit-shadow @error('password') border-red-500 @enderror"
+                        >
+
+                        <button 
+                            type="button"
+                            onclick="togglePassword('password', this)"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                        >
+                            <span class="eye-open">
+                                <x-icons.eye />
+                            </span>
+
+                            <span class="eye-closed hidden">
+                                <x-icons.eyeclosed />
+                            </span>
+                        </button>
+                    </div>
 
                     <p class="text-red-500 text-sm">
                         @error('password') 
@@ -58,22 +77,23 @@
                         @enderror
                     </p>
                 </div>
-                
-                
 
+                <!-- BOTÃO -->
                 <button 
                     type="submit"
-                    class="p-2 bg-habit-orange habit-shadow-lg habit-btn"
+                    class="w-full p-2 bg-habit-orange habit-shadow-lg habit-btn"
                 >
                     Entrar
                 </button>
 
+                <!-- LINK -->
                 <p class="text-center mt-2">
                     Ainda não tem uma conta?
                     <a href="{{ route('site.register') }}" class="underline hover:opacity-50 transtition">
                         Registre-se
                     </a>
                 </p>
+
             </form>
         </section>
     </main>
