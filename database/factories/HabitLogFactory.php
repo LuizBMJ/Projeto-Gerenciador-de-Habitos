@@ -19,17 +19,10 @@ class HabitLogFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => '1',
-            'habit_id' 
-                => Habit::query()
-                ->inRandomOrder()
-                ->first()
-                ->id,
-            'completed_at' 
-                => $this
-                ->faker
-                ->unique()
-                ->dateTimeBetween('-30 days', 'now')
+            'user_id'      => 1,
+            'habit_id'     => Habit::inRandomOrder()->first()->id,
+            'completed_at' => $this->faker
+                ->dateTimeBetween('-365 days', 'now')
                 ->format('Y-m-d'),
         ];
     }

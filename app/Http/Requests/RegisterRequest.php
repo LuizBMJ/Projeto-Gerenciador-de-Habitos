@@ -25,7 +25,15 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|max:60|confirmed'
+            'password' => [
+                'required',
+                'min:8',
+                'max:60',
+                'confirmed',
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',     
+                'regex:/[@$!%*#?&]/', 
+            ],
         ];
     }
 
@@ -44,7 +52,8 @@ class RegisterRequest extends FormRequest
             'password.required' => 'O campo senha é obrigatório.',
             'password.min' => 'A senha deve conter no mínimo 6 caracteres.',
             'password.max' => 'A senha deve conter no máximo 60 caracteres.',
-            'password.confirmed' => 'As senhas não coincidem.'
+            'password.confirmed' => 'As senhas não coincidem.',
+            'password.regex' => 'A senha deve conter letras maiúsculas, números e caracteres especiais.',
         ];
     }
 }

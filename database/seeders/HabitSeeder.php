@@ -13,6 +13,10 @@ class HabitSeeder extends Seeder
      */
     public function run(): void
     {
-        Habit::factory()->count(5)->create();
+        $user = \App\Models\User::where('email', 'jorge@gmail.com')->firstOrFail();
+
+        Habit::factory(10)->create([
+            'user_id' => $user->id,
+        ]);
     }
 }

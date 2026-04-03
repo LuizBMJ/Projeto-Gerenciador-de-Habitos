@@ -22,11 +22,11 @@
                     </label>
 
                     <input 
-                    type="text" 
-                    name="name"    
-                    placeholder="Seu nome"
-                    value="{{  old('name') }}"
-                    class="bg-white p-2 habit-shadow @error('name') border-red-500 w-full @enderror
+                        type="text" 
+                        name="name"    
+                        placeholder="Seu nome"
+                        value="{{ old('name') }}"
+                        class="bg-white p-2 habit-shadow w-full @error('name') border-red-500 @enderror"
                     >
 
                     <p class="text-red-500 text-sm">
@@ -67,6 +67,7 @@
                             type="password" 
                             name="password"    
                             placeholder="Senha"
+                            autocomplete="new-password"
                             class="w-full bg-white p-2 pr-10 habit-shadow @error('password') border-red-500 @enderror"
                         >
 
@@ -104,6 +105,7 @@
                             type="password" 
                             name="password_confirmation"    
                             placeholder="Senha"
+                            autocomplete="new-password"
                             class="w-full bg-white p-2 pr-10 habit-shadow @error('password') border-red-500 @enderror"
                         >
 

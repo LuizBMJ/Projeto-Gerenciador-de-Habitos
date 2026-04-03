@@ -52,7 +52,7 @@ class HabitControler extends Controller
     {
         $this->authorize('update', $habit);
 
-        return view('habits.edit', compact('habit'));
+        return view('habits.edit', compact('habit'))->with('success', 'Hábito criado com sucesso!');;
     }
 
     /**
@@ -62,7 +62,7 @@ class HabitControler extends Controller
     {
         $this->authorize('update', $habit);
 
-        $habit->update($request->all());
+        $habit->update($request->validated()); // was $request->all()
 
         return redirect()
             ->route('habits.index')
@@ -144,20 +144,35 @@ class HabitControler extends Controller
             $availableYears = range((int) $minYear, $currentYear);
         }
 
-        if(!empty($availableYears) && !in_array($selectedYear, $availableYears)) {
+        if (!empty($availableYears) && !in_array($selectedYear, $availableYears)) {
             abort(404, 'Ano inválido.');
         }
 
         $startDate = Carbon::create($selectedYear, 1, 1)->toDateString();
-        $endDate = Carbon::create($selectedYear, 12, 31)->toDateString();
+        $endDate   = Carbon::create($selectedYear, 12, 31)->toDateString();
 
-        $habits = Auth::user()->habits()
-            ->with(['habitLogs' => function($query) use ($startDate, $endDate) {
-                $query->whereBetween('completed_at', [$startDate, $endDate]);
-            }])
-            ->get();
+        // Count completions per day
+        $logCounts = HabitLog::query()
+            ->where('user_id', Auth::id())
+            ->whereBetween('completed_at', [$startDate, $endDate])
+            ->selectRaw('completed_at, COUNT(*) as total')
+            ->groupBy('completed_at')
+            ->pluck('total', 'completed_at'); // ['2025-01-03' => 4, ...]
 
-        return view('habits.history', compact('habits', 'selectedYear', 'availableYears'));
+        $maxCount = $logCounts->max() ?? 1;
+
+        $weeks = \App\Models\Habit::generateYearGrid($selectedYear);
+
+        $totalHabits = Auth::user()->habits()->count();
+
+        return view('habits.history', compact(
+            'selectedYear',
+            'availableYears',
+            'logCounts',
+            'maxCount',
+            'weeks',
+            'totalHabits'
+        ));
     }
 
     public function calendar()

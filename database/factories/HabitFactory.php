@@ -16,18 +16,10 @@ class HabitFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        $habits = [
-            'Ler 10 páginas',
-            'Meditar por 15 minutos',
-            'Fazer exercícios físicos',
-            'Escrever um diário',
-            'Aprender uma nova habilidade',
-        ];
-
-        return [
-            'user_id' => '1',
-            'name' => $this->faker->unique()->randomElement($habits),
-        ];
-    }
+{
+    return [
+        'user_id' => 1,
+        'name' => $this->faker->unique()->sentence(3),
+    ];
+}
 }

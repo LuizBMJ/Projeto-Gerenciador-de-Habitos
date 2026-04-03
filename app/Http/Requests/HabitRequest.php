@@ -15,14 +15,16 @@ class HabitRequest extends FormRequest
 
     public function rules(): array
     {
+        $habitId = $this->route('habit')?->id;
+
         return [
             'name' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('habits')->where(function ($query) {
-                    return $query->where('user_id', Auth::id());
-                })
+                Rule::unique('habits')
+                    ->where(fn($query) => $query->where('user_id', Auth::id()))
+                    ->ignore($habitId),
             ],
         ];
     }
@@ -31,9 +33,9 @@ class HabitRequest extends FormRequest
     {
         return [
             'name.required' => 'O campo nome é obrigatório.',
-            'name.string' => 'Deve ser um texto.',
-            'name.max' => 'O campo nome não pode ter mais de 255 caracteres.',
-            'name.unique' => 'Você já possui um hábito com esse nome.',
+            'name.string'   => 'Deve ser um texto.',
+            'name.max'      => 'O campo nome não pode ter mais de 255 caracteres.',
+            'name.unique'   => 'Você já possui um hábito com esse nome.',
         ];
     }
 }

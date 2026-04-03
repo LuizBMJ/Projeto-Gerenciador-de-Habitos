@@ -14,15 +14,15 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::query()->create([
-            'name' => 'Jorge',
-            'email' => 'jorge@gmail.com',
-            'password' => '123456'
+            'name'     => 'Jorge',
+            'email'    => 'jorge@gmail.com',
+            'password' => bcrypt('123123'),
         ]);
 
         User::query()->create([
-            'name' => 'Marya',
-            'email' => 'marya@gmail.com',
-            'password' => '123123'
+            'name'     => 'Marya',
+            'email'    => 'marya@gmail.com',
+            'password' => bcrypt('123123'),
         ]);
     }
 }

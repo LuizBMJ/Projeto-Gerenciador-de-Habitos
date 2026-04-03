@@ -4,7 +4,7 @@
 
             <!-- LOGO -->
             <div class="flex items-center gap-2 min-w-0">
-                <a href="{{ auth()->check() ? route('habits.index') : route('site.login') }}"
+                <a href="{{ auth()->check() ? route('habits.index') : route('site.index') }}"
                     class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange shrink-0"
                 >
                     HT

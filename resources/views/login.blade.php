@@ -30,6 +30,7 @@
                         type="email" 
                         name="email"    
                         placeholder="seu@email.com"
+                        autocomplete="email"
                         value="{{ old('email') }}"
                         class="w-full bg-white p-2 habit-shadow @error('email') border-red-500 @enderror"
                     >
@@ -53,6 +54,7 @@
                             type="password" 
                             name="password"    
                             placeholder="senha"
+                            autocomplete="current-password"
                             class="w-full bg-white p-2 pr-10 habit-shadow @error('password') border-red-500 @enderror"
                         >
 

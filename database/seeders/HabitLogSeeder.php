@@ -13,8 +13,31 @@ class HabitLogSeeder extends Seeder
      */
     public function run(): void
     {
-        HabitLog::factory()
-            ->count(10)
-            ->create();
+        $user = \App\Models\User::where('email', 'jorge@gmail.com')->firstOrFail();
+        $habits = \App\Models\Habit::where('user_id', $user->id)->get();
+
+        foreach ($habits as $habit) {
+            $usedDates = [];
+            $count = rand(5, 15);
+            $attempts = 0;
+
+            while (count($usedDates) < $count && $attempts < 100) {
+                $date = \Carbon\Carbon::now()
+                    ->subDays(rand(0, 365))
+                    ->toDateString();
+
+                if (!in_array($date, $usedDates)) {
+                    $usedDates[] = $date;
+
+                    \App\Models\HabitLog::create([
+                        'user_id'      => $user->id,
+                        'habit_id'     => $habit->id,
+                        'completed_at' => $date,
+                    ]);
+                }
+
+                $attempts++;
+            }
+        }
     }
 }
