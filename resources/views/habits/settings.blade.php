@@ -35,7 +35,7 @@
                         </form>
                 </li>
             @empty
-                <p>
+                <p class="mt-2">
                     Você ainda não cadastrou nenhum hábito.
                 </p>
             @endforelse

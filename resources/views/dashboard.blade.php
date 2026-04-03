@@ -6,7 +6,7 @@
 
         {{-- CONTENT --}}
 
-        <div class="flex flex-col gap-4 items-start">
+        <div class="flex flex-col items-center justify-center gap-4 items-start">
             <x-title >
                 {{ \Carbon\Carbon::now()->locale('pt_BR')->translatedFormat('l, d \d\e F') }}
             </x-title>

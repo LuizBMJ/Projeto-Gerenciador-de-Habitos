@@ -25,7 +25,7 @@
             @empty
 
                 <p>
-                    Nenhum hábito para exibir histórico.
+                    Você ainda não cadastrou nenhum hábito.
                 </p>
 
             @endforelse
