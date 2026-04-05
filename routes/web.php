@@ -6,38 +6,67 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
+/*
+    WEBSITE
+*/
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
-Route::get('/login', [LoginController::class, 'index'])->name('site.login');
-Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+/*
+    AUTH
+*/
 
-Route::get('/cadastro', [RegisterController::class, 'index'])->name('site.register');
-Route::post('/cadastro', [RegisterController::class, 'store'])->name('auth.register');
+Route::prefix('login')->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('site.login');
+    Route::post('/', [LoginController::class, 'login'])->name('auth.login');
+});
 
-Route::middleware('auth')->group(function() {
+Route::prefix('cadastro')->group(function () {
+    Route::get('/', [RegisterController::class, 'index'])->name('site.register');
+    Route::post('/', [RegisterController::class, 'store'])->name('auth.register');
+});
 
-    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+/*
+    DASHBOARD (AUTH REQUIRED)
+*/
 
-    Route::prefix('/dashboard')->group(function () {
+Route::middleware('auth')
+    ->prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
 
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-            // routes/web.php
-        Route::get('/habits/paginate', [HabitControler::class, 'paginate'])->name('habits.paginate');
-        Route::get('habits/historico/day', [HabitControler::class, 'historyDay'])->name('habits.history.day');
-        Route::get('habits/historico/{year?}', [HabitControler::class, 'history'])->name('habits.history');
+        /*
+        HABITS
+        */
 
-        Route::get('habits/configurar', [HabitControler::class, 'settings'])->name('habits.settings');
-        Route::post('habits/{habit}/toggle', [HabitControler::class, 'toggle'])->name('habits.toggle');
+        Route::prefix('habits')
+            ->name('habits.')
+            ->group(function () {
 
-        Route::prefix('habits/calendar')->name('habits.calendar.')->group(function () {
-            Route::get('/', [HabitControler::class, 'calendar'])->name('index');
-            Route::get('/events', [HabitControler::class, 'calendarEvents'])->name('events');
-            Route::post('/toggle-date', [HabitControler::class, 'calendarToggle'])->name('toggle');
-        });
+                // EXTRA
+                Route::get('paginate', [HabitControler::class, 'paginate'])->name('paginate');
+                Route::post('{habit}/toggle', [HabitControler::class, 'toggle'])->name('toggle');
 
+                // HISTORY
+                Route::prefix('historico')->name('history.')->group(function () {
+                    Route::get('day', [HabitControler::class, 'historyDay'])->name('day');
+                    Route::get('{year?}', [HabitControler::class, 'history'])->name('index');
+                });
+
+                // SETTINGS
+                Route::get('configurar', [HabitControler::class, 'settings'])->name('settings');
+
+                // CALENDAR
+                Route::prefix('calendar')->name('calendar.')->group(function () {
+                    Route::get('/', [HabitControler::class, 'calendar'])->name('index');
+                    Route::get('events', [HabitControler::class, 'calendarEvents'])->name('events');
+                    Route::post('toggle-date', [HabitControler::class, 'calendarToggle'])->name('toggle');
+                });
+            });
+
+        // HABITS CRUD
         Route::resource('habits', HabitControler::class)->except('show');
 
     });
-
-});

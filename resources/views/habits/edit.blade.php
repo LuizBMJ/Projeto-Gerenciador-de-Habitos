@@ -8,7 +8,7 @@
 
             <section class="habit-shadow-lg bg-white max-w-[600px] mx-auto p-10 pb-6 mt-4 w-full">
 
-                <form action="{{ route('habits.update', $habit) }}" method="POST">
+                <form action="{{ route('dashboard.habits.update', $habit) }}" method="POST">
                     @csrf
                     @method('PUT')
 

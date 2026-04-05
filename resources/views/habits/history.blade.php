@@ -10,7 +10,7 @@
         @if (!empty($availableYears))
             <div class="my-4 flex flex-wrap gap-2">
                 @foreach ($availableYears as $year)
-                    <a href="{{ route('habits.history', $year) }}"
+                    <a href="{{ route('dashboard.habits.history.index', $year) }}"
                         class="habit-btn habit-shadow p-2 inline-block {{ $selectedYear === $year ? 'bg-habit-orange text-white' : 'bg-white' }}">
                         {{ $year }}
                     </a>

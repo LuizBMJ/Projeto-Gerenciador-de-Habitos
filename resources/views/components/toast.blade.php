@@ -1,10 +1,15 @@
-{{-- Toast notification --}}
 <div id="toast"
     class="fixed top-20 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-6
         z-50 hidden opacity-0 transition-opacity duration-500
         flex items-center gap-3 px-4 py-3 border rounded shadow-lg max-w-sm">
-        
+
     <span id="toast-icon" class="flex-shrink-0 flex items-center"></span>
     <span id="toast-message" class="text-sm font-medium"></span>
 
+</div>
+
+<div id="toast-session"
+    data-success="{{ session('success') }}"
+    data-warning="{{ session('warning') }}"
+    data-error="{{ session('error') }}">
 </div>

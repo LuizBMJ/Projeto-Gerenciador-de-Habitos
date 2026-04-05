@@ -91,7 +91,7 @@
             >&times;</button>
         </div>
 
-        {{-- Loading state --}}
+        {{-- LOADING --}}
         <div id="day-detail-loading" class="hidden items-center gap-2 text-sm text-gray-400">
             <svg class="animate-spin w-4 h-4 text-habit-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -100,7 +100,7 @@
             <span>Carregando...</span>
         </div>
 
-        {{-- Habit list --}}
+        {{-- HABIT LIST --}}
         <ul id="day-detail-list" class="flex flex-col gap-2"></ul>
 
     </div>

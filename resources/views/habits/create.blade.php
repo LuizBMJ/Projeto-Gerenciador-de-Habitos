@@ -6,7 +6,7 @@
 
         <section class="habit-shadow-lg bg-white max-w-[600px] mx-auto p-10 pb-6 mt-4" >
 
-            <form action="{{ route('habits.store') }}" method="POST">
+            <form action="{{ route('dashboard.habits.store') }}" method="POST">
                 @csrf
 
                 <div class="flex flex-col gap-2 mb-4">

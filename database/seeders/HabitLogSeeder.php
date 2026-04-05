@@ -8,9 +8,6 @@ use Illuminate\Database\Seeder;
 
 class HabitLogSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $user = \App\Models\User::where('email', 'jorge@gmail.com')->firstOrFail();

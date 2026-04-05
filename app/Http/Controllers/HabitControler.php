@@ -23,17 +23,11 @@ class HabitControler extends Controller
         return view('dashboard', compact('habits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         return view('habits.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(HabitRequest $request)
     {
         $validated = $request->validated();
@@ -41,13 +35,10 @@ class HabitControler extends Controller
         Auth::user()->habits()->create($validated);
 
         return redirect()
-            ->route('habits.index')
+            ->route('dashboard.habits.index')
             ->with('success', 'Hábito criado com sucesso!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Habit $habit)
     {
         $this->authorize('update', $habit);
@@ -55,9 +46,6 @@ class HabitControler extends Controller
         return view('habits.edit', compact('habit'))->with('success', 'Hábito criado com sucesso!');;
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(HabitRequest $request, Habit $habit)
     {
         $this->authorize('update', $habit);
@@ -65,13 +53,10 @@ class HabitControler extends Controller
         $habit->update($request->validated());
 
         return redirect()
-            ->route('habits.index')
+            ->route('dashboard.habits.settings')
             ->with('success', 'Hábito atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Habit $habit)
     {
         $this->authorize('delete', $habit);
@@ -79,7 +64,7 @@ class HabitControler extends Controller
         $habit->delete();  
         
         return redirect()
-            ->route('habits.index')
+            ->route('dashboard.habits.index')
             ->with('warning', 'Hábito deletado com sucesso!');
     }
 
@@ -124,7 +109,7 @@ class HabitControler extends Controller
         }
 
         return redirect()
-            ->route('habits.index')
+            ->route('dashboard.habits.index')
             ->with($alert, $message);
     }
 

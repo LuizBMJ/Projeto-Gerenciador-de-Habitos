@@ -4,7 +4,7 @@
     @auth
         <form
             class="flex items-center gap-2 min-w-0"
-            action="{{ route('auth.logout') }}"
+            action="{{ route('dashboard.logout') }}"
             method="POST"
         >
             @csrf

@@ -42,7 +42,7 @@
                     </p>
                 </div>
 
-                <!-- SENHA -->
+                <!-- PASSWORD -->
                 <div class="flex flex-col gap-2 mb-4">
                     <label for="password">
                         Senha
@@ -80,7 +80,7 @@
                     </p>
                 </div>
 
-                <!-- BOTÃO -->
+                <!-- BUTTON -->
                 <button 
                     type="submit"
                     class="w-full p-2 bg-habit-orange habit-shadow-lg habit-btn"

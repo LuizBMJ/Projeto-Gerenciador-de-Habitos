@@ -22,12 +22,6 @@ function filterHabits(query) {
     }, 300);
 }
 
-/**
- * Sort habits by relevance to the search term:
- *   1. Name starts with the term  (closest match)
- *   2. Name contains the term elsewhere
- * Within each group habits are sorted alphabetically.
- */
 function sortByRelevance(habits, search) {
     const term = search.toLowerCase();
 
@@ -38,10 +32,8 @@ function sortByRelevance(habits, search) {
         const aStarts = aName.startsWith(term);
         const bStarts = bName.startsWith(term);
 
-        // Different groups — starts-with wins
         if (aStarts !== bStarts) return aStarts ? -1 : 1;
 
-        // Same group — alphabetical
         return aName.localeCompare(bName);
     });
 }
@@ -68,7 +60,6 @@ function searchBackend(search, list) {
 
         if (noResults) noResults.classList.toggle('hidden', data.habits.length > 0);
 
-        // Hide load buttons during search — all results are already shown
         if (loadMore) loadMore.classList.add('hidden');
         if (loadAll)  loadAll.classList.add('hidden');
     })

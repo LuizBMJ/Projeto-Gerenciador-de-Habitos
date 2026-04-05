@@ -11,7 +11,7 @@
                 {{ \Carbon\Carbon::now()->locale('pt_BR')->translatedFormat('l, d \d\e F') }}
             </x-title>
 
-            {{-- SEARCH + MARK ALL (hidden until JS reveals after first load) --}}
+            {{-- SEARCH + SELECT ALL  --}}
             <div id="search-wrapper" class="flex flex-col gap-2 w-full hidden">
                 <div class="flex gap-2 w-full">
                     <div class="relative flex-1">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                {{-- Select-all row --}}
+                {{-- SELECT ALL --}}
                 <label class="flex items-center gap-2 cursor-pointer w-fit select-none text-sm text-gray-600">
                     <input type="checkbox" id="select-all-checkbox" class="w-4 h-4 cursor-pointer">
                     Marcar todos
@@ -41,7 +41,7 @@
             <ul class="flex flex-col gap-2 w-full" id="habit-list"
                 data-view="dashboard"
                 data-offset="0"
-                data-paginate-url="{{ route('habits.paginate') }}"
+                data-paginate-url="{{ route('dashboard.habits.paginate') }}"
                 data-toggle-url="{{ url('/dashboard/habits') }}"
                 data-edit-url="{{ url('/dashboard/habits') }}"
                 data-delete-url="{{ url('/dashboard/habits') }}">
@@ -52,7 +52,7 @@
                     Nenhum hábito encontrado.
                 </p>
 
-                <a href="{{ route('habits.create') }}" class="p-2 habit-shadow-lg bg-habit-orange habit-btn w-fit">
+                <a href="{{ route('dashboard.habits.create') }}" class="p-2 habit-shadow-lg bg-habit-orange habit-btn w-fit">
                     + Adicionar
                 </a>
 

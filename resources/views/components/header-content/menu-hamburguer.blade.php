@@ -41,7 +41,7 @@
         @endguest
 
         @auth
-            <form action="{{ route('auth.logout') }}" method="POST">
+            <form action="{{ route('dashboard.logout') }}" method="POST">
                 @csrf
 
                 <button 

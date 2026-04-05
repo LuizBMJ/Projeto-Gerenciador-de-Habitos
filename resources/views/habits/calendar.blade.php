@@ -42,7 +42,7 @@
             
             <div class="flex flex-wrap gap-3 border-2 p-3 rounded bg-white habit-shadow-lg">
 
-                {{-- BOTÃO TODOS --}}
+                {{-- BUTTON ALL --}}
                 @if($habits->count() >= 2)
                     <button
                         type="button"
@@ -55,7 +55,7 @@
                     </button>
                 @endif
 
-                {{-- BOTÕES DOS HÁBITOS --}}
+                {{-- HABITS BUTTONS --}}
                 @foreach ($habits as $habit)
                     <button
                         type="button"
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        {{-- CALENDÁRIO --}}
+        {{-- CALENDAR --}}
         <div class="bg-white habit-shadow-lg p-2 sm:p-6 w-full overflow-hidden">
             <div id="calendar" class="w-full"></div>
         </div>

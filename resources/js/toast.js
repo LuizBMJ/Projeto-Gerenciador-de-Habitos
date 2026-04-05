@@ -1,6 +1,5 @@
 let toastTimeout = null;
 
-// SVG icons matching resources/views/components/icons/*.blade.php
 const TOAST_ICONS = {
     success: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>`,
     error:   `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>`,
@@ -13,6 +12,8 @@ const TOAST_STYLES = {
     warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
 };
 
+// FUNCTION FOR JS
+
 window.mostrarToast = function(tipo, mensagem) {
     const toast   = document.getElementById('toast');
     const message = document.getElementById('toast-message');
@@ -22,7 +23,6 @@ window.mostrarToast = function(tipo, mensagem) {
 
     if (toastTimeout) clearTimeout(toastTimeout);
 
-    // Remove all possible colour classes
     toast.classList.remove(
         'bg-green-100', 'border-green-400', 'text-green-700',
         'bg-red-100',   'border-red-400',   'text-red-700',
@@ -35,7 +35,7 @@ window.mostrarToast = function(tipo, mensagem) {
     if (message) message.textContent = mensagem;
 
     toast.classList.remove('hidden', 'opacity-0');
-    void toast.offsetWidth; // force reflow for transition
+    void toast.offsetWidth; 
     toast.classList.add('opacity-100');
 
     toastTimeout = setTimeout(() => {
@@ -44,3 +44,28 @@ window.mostrarToast = function(tipo, mensagem) {
         setTimeout(() => toast.classList.add('hidden'), 500);
     }, 3000);
 };
+
+// CONTROLLER TOAST CONFIG
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const session = document.getElementById("toast-session");
+    if (!session) return;
+
+    const success = session.dataset.success;
+    const warning = session.dataset.warning;
+    const error   = session.dataset.error;
+
+    if (success) {
+        mostrarToast("success", success);
+    }
+
+    if (warning) {
+        mostrarToast("warning", warning);
+    }
+
+    if (error) {
+        mostrarToast("error", error);
+    }
+
+});

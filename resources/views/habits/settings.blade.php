@@ -35,7 +35,7 @@
                         <span class="hidden sm:block">Deletar selecionados</span>
                     </button>
                 </div>
-                {{-- Select-all row --}}
+                {{-- SELECT ALL --}}
                 <label class="flex items-center gap-2 mt-2 cursor-pointer w-fit select-none text-sm text-gray-600">
                     <input type="checkbox" id="select-all-checkbox" class="w-4 h-4 cursor-pointer">
                     Selecionar todos
@@ -44,7 +44,7 @@
             <ul class="flex flex-col gap-2 mt-2" id="habit-list"
                 data-view="settings"
                 data-offset="0"
-                data-paginate-url="{{ route('habits.paginate') }}"
+                data-paginate-url="{{ route('dashboard.habits.paginate') }}"
                 data-toggle-url="{{ url('/dashboard/habits') }}"
                 data-edit-url="{{ url('/dashboard/habits') }}"
                 data-delete-url="{{ url('/dashboard/habits') }}">
