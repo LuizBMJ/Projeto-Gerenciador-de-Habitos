@@ -49,8 +49,11 @@
                         data-habit
                         data-all
                         onclick="selectHabit(null, this)"
-                        class="habit-btn habit-shadow px-4 py-2 bg-gray-100 hover:bg-habit-orange hover:text-white transition-colors"
-                    >
+                        class="habit-btn habit-shadow text-sm sm:text-normal
+                            px-4 py-2
+                            w-full sm:w-auto
+                            bg-gray-100 hover:bg-habit-orange hover:text-white
+                            transition-colors">
                         Todos
                     </button>
                 @endif
@@ -65,8 +68,12 @@
                         data-created="{{ $habit->created_at }}"
                         data-completed="{{ $habit->habitLogs->count() }}"
                         onclick="selectHabit({{ $habit->id }}, this)"
-                        class="habit-btn habit-shadow px-4 py-2 bg-gray-100 hover:bg-habit-orange hover:text-white transition-colors"
-                    >
+                        class="habit-btn habit-shadow text-sm sm:text-normal
+                            px-4 py-2
+                            flex-1 sm:flex-none
+                            text-center
+                            bg-gray-100 hover:bg-habit-orange hover:text-white
+                            transition-colors">
                         {{ $habit->name }}
                     </button>
                 @endforeach

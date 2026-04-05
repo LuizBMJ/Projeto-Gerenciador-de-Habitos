@@ -32,7 +32,7 @@ function initHabitPagination() {
                         <input type="checkbox" class="habit-checkbox w-5 h-5 cursor-pointer"
                             data-id="${habit.id}"
                             ${habit.wasCompletedToday ? 'checked' : ''}>
-                        <p class="font-bold text-lg">${habit.name}</p>
+                        <p class="font-bold text-sm sm:text-lg">${habit.name}</p>
                     </div>
                 </li>`;
         }
@@ -45,7 +45,7 @@ function initHabitPagination() {
                     <div class="flex gap-2 items-center habit-shadow-lg p-2 bg-[#FFDAAC] w-full">
                         <input type="checkbox" class="habit-checkbox w-5 h-5 cursor-pointer flex-shrink-0"
                         data-id="${habit.id}">
-                        <p class="font-bold text-lg">${habit.name}</p>
+                        <p class="font-bold text-sm sm:text-lg">${habit.name}</p>
                     </div>
                     <a href="${editUrl}/${habit.id}/edit"
                         class="flex items-center bg-white habit-shadow-lg p-2 hover:opacity-50">
