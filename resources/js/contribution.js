@@ -56,7 +56,6 @@
                 return;
             }
 
-            // Toggle off if clicking same cell
             if (activeCell === cell) {
                 closeDayDetail();
                 return;
