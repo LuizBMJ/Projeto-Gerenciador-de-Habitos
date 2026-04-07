@@ -2,13 +2,13 @@
     <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
 
         {{-- NAVBAR --}}
-        <x-navbar />
+        <x-main-content.navbar />
 
         <div class="flex flex-col gap-4">
 
-            <x-title>
+            <x-main-content.title>
                 Configurar Hábitos
-            </x-title>
+            </x-main-content.title>
 
             <div id="search-wrapper" class="relative w-full hidden">
                 <div class="flex items-center gap-2 w-full">

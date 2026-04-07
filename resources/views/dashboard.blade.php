@@ -2,14 +2,14 @@
     <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
 
         {{-- NAVBAR --}}
-        <x-navbar />
+        <x-main-content.navbar />
 
         {{-- CONTENT --}}
         <div class="flex flex-col gap-4">
 
-            <x-title>
+            <x-main-content.title>
                 {{ \Carbon\Carbon::now()->locale('pt_BR')->translatedFormat('l, d \d\e F') }}
-            </x-title>
+            </x-main-content.title>
 
             {{-- SEARCH + SELECT ALL  --}}
             <div id="search-wrapper" class="flex flex-col gap-2 w-full hidden">
@@ -66,7 +66,6 @@
                 <p id="no-results" class="hidden text-gray-400 text-sm">
                     Nenhum hábito encontrado.
                 </p>
-
 
                 <a href="{{ route('dashboard.habits.create') }}" class="p-2 habit-shadow-lg bg-habit-orange habit-btn w-fit text-sm sm:text-lg order-3">
                     + Adicionar

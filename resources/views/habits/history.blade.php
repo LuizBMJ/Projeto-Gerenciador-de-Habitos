@@ -2,9 +2,9 @@
     <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
 
         {{-- NAVBAR --}}
-        <x-navbar />
+        <x-main-content.navbar />
 
-        <x-title>Histórico</x-title>
+        <x-main-content.title>Histórico</x-main-content.title>
 
         {{-- YEAR SELECTION --}}
         @if (!empty($availableYears))
@@ -24,7 +24,7 @@
         @elseif ($logCounts->isEmpty())
             <p class="text-gray-500">Nenhum hábito concluído em {{ $selectedYear }}.</p>
         @else
-            <x-contribution
+            <x-main-content.contribution
                 :weeks="$weeks"
                 :logCounts="$logCounts"
                 :maxCount="$maxCount"

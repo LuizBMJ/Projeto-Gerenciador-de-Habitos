@@ -5,6 +5,7 @@ use App\Http\Controllers\HabitControler;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\GoogleController;
 
 /*
     WEBSITE
@@ -24,6 +25,13 @@ Route::prefix('login')->group(function () {
 Route::prefix('cadastro')->group(function () {
     Route::get('/', [RegisterController::class, 'index'])->name('site.register');
     Route::post('/', [RegisterController::class, 'store'])->name('auth.register');
+});
+
+Route::prefix('auth/google')->name('auth.google.')->group(function () {
+    Route::get('redirect',  [GoogleController::class, 'redirect'])->name('redirect');
+    Route::get('callback',  [GoogleController::class, 'callback'])->name('callback');
+    Route::get('vincular',  [GoogleController::class, 'showLink'])->name('link');
+    Route::post('vincular', [GoogleController::class, 'link'])->name('link.store');
 });
 
 /*

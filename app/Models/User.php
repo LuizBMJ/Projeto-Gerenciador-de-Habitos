@@ -13,7 +13,14 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'google_id',   
+        'avatar_url',  
+    ];
+    
     protected $hidden = ['password'];
 
     /**
