@@ -22,7 +22,7 @@
                 @if ($totalHabits === 0)
                     <p class="text-text-muted text-center">Você ainda não cadastrou nenhum hábito.</p>
                 @elseif ($logCounts->isEmpty())
-                    <p class="text-text-secondary">Nenhum hábito concluído em {{ $selectedYear }}.</p>
+                    <p class="text-text-secondary text-center">Nenhum hábito concluído em {{ $selectedYear }}.</p>
                 @else
                     <div class="bg-surface border border-border rounded-2xl p-5 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
                         <x-main-content.contribution

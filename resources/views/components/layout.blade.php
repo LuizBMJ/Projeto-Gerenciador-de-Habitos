@@ -12,7 +12,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Inline theme script: must run before CSS/body to prevent white flash (FOUC) --}}
     <script>
         (function() {
             var stored = localStorage.getItem('theme');
