@@ -31,7 +31,7 @@
     window.closeDayDetail = function () {
         document.getElementById('day-detail-panel').classList.add('hidden');
         if (activeCell) {
-            activeCell.classList.remove('ring-2', 'ring-orange-500');
+            activeCell.classList.remove('ring-2', 'ring-brand-orange');
             activeCell = null;
         }
     };
@@ -52,18 +52,18 @@
 
             if (count === 0) {
                 mostrarToast('error', 'Nenhum hábito concluído neste dia.');
-                closeDayDetail();
+                window.closeDayDetail();
                 return;
             }
 
             if (activeCell === cell) {
-                closeDayDetail();
+                window.closeDayDetail();
                 return;
             }
 
-            if (activeCell) activeCell.classList.remove('ring-2', 'ring-orange-500');
+            if (activeCell) activeCell.classList.remove('ring-2', 'ring-brand-orange');
             activeCell = cell;
-            cell.classList.add('ring-2', 'ring-orange-500');
+            cell.classList.add('ring-2', 'ring-brand-orange');
 
             const panel = document.getElementById('day-detail-panel');
             document.getElementById('day-detail-date').textContent = formatDateBR(date);
@@ -81,9 +81,9 @@
 
                 habits.forEach(function (habit) {
                     const li = document.createElement('li');
-                    li.className = 'flex items-center gap-2 text-sm text-gray-700 bg-white habit-shadow px-3 py-2';
+                    li.className = 'habit-day-item';
                     li.innerHTML =
-                        '<span class="w-2 h-2 rounded-full bg-habit-orange flex-shrink-0 inline-block"></span>' +
+                        '<span class="habit-day-dot"></span>' +
                         '<span>' + escapeHtml(habit.name) + '</span>';
                     list.appendChild(li);
                 });

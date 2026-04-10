@@ -1,92 +1,63 @@
 <x-layout>
-    <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
+    <main class="flex-1 py-8 px-5">
+        <div class="w-full max-w-5xl mx-auto">
 
-        {{-- NAVBAR --}}
-        <x-main-content.navbar />
+            {{-- NAVBAR --}}
+            <x-main-content.navbar />
+            <div class="my-6">
+                <div id="search-wrapper" class="hidden flex flex-col gap-2.5 mb-4">
+                    <div class="flex items-center gap-2 w-full">
+                        <div id="search-input-wrapper" class="relative flex-1">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
+                                <path
+                                    d="M229.66,218.34l-50.07-50.07a88,88,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.31ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" />
+                            </svg>
+                            <input type="text" id="habit-search" placeholder="Buscar hábito..."
+                                class="w-full bg-surface/60 backdrop-blur-md border border-border-glass rounded-xl px-4 py-2.5 pl-9 text-[0.95rem] text-text-primary outline-none transition-all duration-300 shadow-sm hover:bg-surface/80 hover:border-border focus:bg-surface focus:border-brand-blue focus:ring-[3px] focus:ring-brand-blue/20 placeholder:text-text-muted"
+                                oninput="filterHabits(this.value)" data-list="habit-list">
+                        </div>
 
-        <div class="flex flex-col gap-4">
-
-            <x-main-content.title>
-                Configurar Hábitos
-            </x-main-content.title>
-
-            <div id="search-wrapper" class="relative w-full hidden">
-                <div class="flex items-center gap-2 w-full">
-                    <div class="relative flex-1">
-                        <input
-                            type="text"
-                            id="habit-search"
-                            placeholder="Buscar hábito..."
-                            class="w-full bg-white
-                                text-sm sm:text-base
-                                px-3 py-2 sm:px-4 sm:py-2.5
-                                pl-9 sm:pl-10
-                                habit-shadow
-                                focus:outline-none focus:ring-2 focus:ring-green-400
-                                transition"
-                            oninput="filterHabits(this.value)"
-                            data-list="habit-list"
-                        >
-
-                        <svg
-                            class="absolute left-3 top-1/2 -translate-y-1/2
-                                w-4 h-4 sm:w-5 sm:h-5
-                                text-gray-400 pointer-events-none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 256 256">
-
-                            <path d="M229.66,218.34l-50.07-50.07a88,88,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.31ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/>
-                        </svg>
+                        <button id="delete-selected-btn" onclick="deleteSelectedHabits()"
+                            class="hidden inline-flex items-center justify-center gap-1.5 font-medium text-sm px-3.5 py-2.5 rounded-xl transition-all duration-200 whitespace-nowrap bg-error text-white shadow-sm hover:opacity-80 active:scale-95 outline-none">
+                            <x-icons.trash class="w-4 h-4" />
+                            <span class="hidden md:inline">Deletar selecionados</span>
+                        </button>
                     </div>
 
-                    <button
-                        id="delete-selected-btn"
-                        onclick="deleteSelectedHabits()"
-                        class="hidden items-center justify-center gap-2
-                            bg-red-500 text-white
-                            px-2.5 py-2 sm:px-3 sm:py-2
-                            habit-shadow-lg
-                            hover:opacity-80
-                            cursor-pointer
-                            whitespace-nowrap
-                            transition">
-
-                        <x-icons.trash class="w-4 h-4 sm:w-5 sm:h-5"/>
-
-                        <span class="hidden md:inline">
-                            Deletar selecionados
-                        </span>
-                    </button>
+                    {{-- SELECT ALL --}}
+                    <label id="select-all-wrapper"
+                        class="flex items-center gap-2 cursor-pointer text-[0.84rem] text-text-secondary select-none w-max group">
+                        <input type="checkbox" id="select-all-checkbox"
+                            class="w-4 h-4 cursor-pointer accent-brand-blue transition-transform group-hover:scale-110">
+                        Selecionar todos
+                    </label>
                 </div>
-                {{-- SELECT ALL --}}
-                <label class="flex items-center gap-2 mt-2 cursor-pointer w-fit select-none text-sm text-gray-600">
-                    <input type="checkbox" id="select-all-checkbox" class="w-4 h-4 cursor-pointer">
-                    Selecionar todos
-                </label>
-            </div>
-            <ul class="flex flex-col gap-2 mt-2" id="habit-list"
-                data-view="settings"
-                data-offset="0"
-                data-paginate-url="{{ route('dashboard.habits.paginate') }}"
-                data-toggle-url="{{ url('/dashboard/habits') }}"
-                data-edit-url="{{ url('/dashboard/habits') }}"
-                data-delete-url="{{ url('/dashboard/habits') }}">
-            </ul>
-            <div class="flex flex-row gap-5 items-center justify-center flex-wrap">
-                <p id="no-results" class="hidden text-gray-400 text-sm mt-2">
-                    Nenhum hábito encontrado.
-                </p>
-                <div class="flex flex-row gap-5 mt-2">
-                    <button id="load-more" class="hidden p-2 habit-shadow-lg bg-white habit-btn w-fit text-sm sm:text-lg">
+
+                <ul class="flex flex-col gap-2 w-full list-none p-0 m-0" id="habit-list" data-view="settings"
+                    data-offset="0" data-paginate-url="{{ route('dashboard.habits.paginate') }}"
+                    data-toggle-url="{{ url('/dashboard/habits') }}" data-edit-url="{{ url('/dashboard/habits') }}"
+                    data-delete-url="{{ url('/dashboard/habits') }}">
+                </ul>
+
+                <div class="flex items-center justify-center gap-3 flex-wrap mt-6">
+                    <p id="no-results" class="hidden text-[0.875rem] text-text-muted">
+                        Nenhum hábito encontrado.
+                    </p>
+                    <button id="load-more"
+                        class="hidden hover:cursor-pointer inline-flex items-center justify-center gap-1.5 font-medium text-sm px-4 py-2.5 rounded-xl transition-all duration-200 whitespace-nowrap bg-surface/50 backdrop-blur-sm text-text-secondary border border-border-glass hover:bg-surface/80 hover:text-text-primary active:scale-95 shadow-sm">
                         Carregar mais
                     </button>
-                    <button id="load-all-btn" class="hidden p-2 habit-shadow-lg bg-white habit-btn w-fit text-sm sm:text-lg">
+
+                    <button id="load-all-btn"
+                        class="hidden hover:cursor-pointer inline-flex items-center justify-center gap-1.5 font-medium text-sm px-4 py-2.5 rounded-xl transition-all duration-200 whitespace-nowrap bg-surface/50 backdrop-blur-sm text-text-secondary border border-border-glass hover:bg-surface/80 hover:text-text-primary active:scale-95 shadow-sm">
                         Carregar tudo
                     </button>
-                </div>
-            </div>
-        </div>
 
+                </div>       
+            </div>
+            
+
+        </div>
     </main>
 </x-layout>

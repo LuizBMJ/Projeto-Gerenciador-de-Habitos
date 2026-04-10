@@ -105,6 +105,7 @@ class HabitControler extends Controller
             return response()->json([
                 'completed' => $completed,
                 'message'   => $message,
+                'streak'    => $habit->getCurrentStreak(),
             ]);
         }
 
@@ -256,6 +257,7 @@ class HabitControler extends Controller
                 'id'                => $h->id,
                 'name'              => $h->name,
                 'wasCompletedToday' => $h->wasCompletedToday(),
+                'streak'            => $h->getCurrentStreak(),
             ]);
 
             return response()->json([
@@ -264,8 +266,9 @@ class HabitControler extends Controller
             ]);
         }
 
-        $offset = (int) $request->get('offset', 0);
-        $total  = (clone $query)->count();
+        $offset   = (int) $request->get('offset', 0);
+        $allCount = Habit::where('user_id', Auth::id())->count();
+        $total    = (clone $query)->count();
 
         $habits = $query
             ->skip($offset)
@@ -275,11 +278,14 @@ class HabitControler extends Controller
                 'id'                => $h->id,
                 'name'              => $h->name,
                 'wasCompletedToday' => $h->wasCompletedToday(),
+                'streak'            => $h->getCurrentStreak(),
             ]);
 
         return response()->json([
-            'habits'  => $habits,
-            'hasMore' => ($offset + 5) < $total,
+            'habits'    => $habits,
+            'hasMore'   => ($offset + 5) < $total,
+            'total'     => $total,
+            'all_count' => $allCount,
         ]);
     }
 }

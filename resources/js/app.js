@@ -1,4 +1,5 @@
 import './bootstrap';
+import './theme';
 import './toast';
 import './calendar';
 import './password';

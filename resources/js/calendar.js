@@ -9,11 +9,15 @@ window.selectHabit = function(id, el) {
 
     selectedHabit = id;
 
+    // Remove active styles from all buttons
     document.querySelectorAll('[data-habit]').forEach(btn => {
-        btn.classList.remove('bg-habit-orange', 'text-white');
+        btn.classList.remove('bg-surface-solid', 'text-brand-blue', 'border-brand-blue/50', 'shadow-md', 'scale-105');
+        btn.classList.add('bg-transparent', 'text-text-secondary', 'border-border-glass');
     });
 
-    el.classList.add('bg-habit-orange', 'text-white');
+    // Add active styles to the selected button
+    el.classList.remove('bg-transparent', 'text-text-secondary', 'border-border-glass');
+    el.classList.add('bg-surface-solid', 'text-brand-blue', 'border-brand-blue/50', 'shadow-md', 'scale-105');
 
     if (calendar) {
         calendar.refetchEvents();
@@ -33,24 +37,46 @@ function initCalendar() {
     // "Todos" começa selecionado
     const allButton = document.querySelector('[data-all]');
     if (allButton) {
-        allButton.classList.add('bg-habit-orange', 'text-white');
+        allButton.classList.remove('bg-transparent', 'text-text-secondary', 'border-border-glass');
+        allButton.classList.add('bg-surface-solid', 'text-brand-blue', 'border-brand-blue/50', 'shadow-md', 'scale-105');
     }
 
     calendar = new FullCalendar.Calendar(calendarEl, {
-
         initialView: 'dayGridMonth',
         locale: 'pt-br',
         height: "auto",
         dayMaxEvents: true,
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+        },
+        titleFormat: { year: 'numeric', month: 'short' }, // Mes abreviado para mobile
+
+        // Ajuste dinâmico para telas maiores
+        windowResize: function(view) {
+            if (window.innerWidth >= 768) {
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek'
+                });
+                calendar.setOption('titleFormat', { year: 'numeric', month: 'long' });
+            } else {
+                calendar.setOption('headerToolbar', {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                });
+                calendar.setOption('titleFormat', { year: 'numeric', month: 'short' });
+            }
+        },
 
         events: function(fetchInfo, successCallback) {
-
             let url = '/dashboard/habits/calendar/events';
-
             if (selectedHabit !== null) {
                 url += '?habit_id=' + selectedHabit;
             }
-
             fetch(url)
                 .then(res => res.json())
                 .then(data => successCallback(data))
@@ -62,18 +88,16 @@ function initCalendar() {
         },
 
         dateClick: function(info) {
-
             if (selectedHabit === null) {
                 mostrarToast('error', 'Selecione um hábito primeiro');
                 return;
             }
 
             const dayCell = info.dayEl;
-
-            dayCell.style.transform = "scale(0.95)";
+            dayCell.classList.add('scale-95', 'opacity-80', 'transition-all', 'duration-150');
             setTimeout(() => {
-                dayCell.style.transform = "scale(1)";
-            }, 120);
+                dayCell.classList.remove('scale-95', 'opacity-80');
+            }, 150);
 
             fetch('/dashboard/habits/calendar/toggle-date', {
                 method: 'POST',
@@ -87,10 +111,7 @@ function initCalendar() {
                 })
             })
             .then(res => {
-                if (!res.ok) {
-                    console.error('Status:', res.status, res.statusText);
-                    return res.text().then(t => { throw new Error(t) });
-                }
+                if (!res.ok) throw new Error('Falha ao marcar hábito');
                 return res.json();
             })
             .then(() => {
@@ -98,16 +119,19 @@ function initCalendar() {
             })
             .catch(err => {
                 console.error("Erro ao marcar hábito:", err);
+                mostrarToast('error', 'Erro ao atualizar calendário');
             });
         },
 
         eventDidMount: function(info) {
             info.el.style.border = "none";
-            info.el.style.borderRadius = "6px";
+            info.el.style.borderRadius = "4px";
             info.el.style.padding = "2px 4px";
-            info.el.style.fontSize = "12px";
+            info.el.style.fontSize = "10px";
+            if (window.innerWidth >= 640) {
+                info.el.style.fontSize = "12px";
+            }
         }
-
     });
 
     calendar.render();

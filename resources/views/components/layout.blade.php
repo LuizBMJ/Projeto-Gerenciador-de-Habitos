@@ -11,9 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- Inline theme script: must run before CSS/body to prevent white flash (FOUC) --}}
+    <script>
+        (function() {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored ? stored : (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
     @vite('resources/css/app.css')
 </head>
-<body style="background: var(--color-surface-secondary); min-height: 100vh; display: flex; flex-direction: column;">
+<body class="mesh-bg transition-colors duration-700 font-sans text-text-primary" style="min-height: 100vh; display: flex; flex-direction: column;">
 
     <x-header />
 

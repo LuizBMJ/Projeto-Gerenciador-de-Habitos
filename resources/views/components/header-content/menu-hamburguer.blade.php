@@ -1,27 +1,27 @@
-<div id="mobileMenu" class="mobile-drawer">
+<div id="mobileMenu" class="absolute right-0 top-[calc(100%+0.5rem)] bg-surface/80 backdrop-blur-2xl border border-border-glass rounded-2xl p-3 flex flex-col gap-1.5 min-w-[200px] shadow-[0_12px_40px_rgba(0,0,0,0.12)] z-[200] opacity-0 -translate-y-1.5 scale-95 pointer-events-none transition-all duration-300 origin-top-right">
 
     @guest
-        <a href="{{ route('site.login') }}" class="btn btn--primary" style="width:100%; justify-content:center;">
+        <a href="{{ route('site.login') }}" class="inline-flex items-center justify-center gap-1.5 w-full font-medium text-[0.9rem] leading-none px-4.5 py-2.5 rounded-xl transition-all duration-200 whitespace-nowrap bg-brand-blue text-white shadow-[0_2px_4px_rgba(0,113,227,0.2)] hover:bg-brand-blue-hover hover:shadow-[0_4px_8px_rgba(0,113,227,0.3)]">
             Login
         </a>
-        <a href="{{ route('site.register') }}" style="display:block; padding:0.5rem 0.75rem; border-radius:8px; font-size:0.88rem; font-weight:500; color:var(--color-text-primary); text-decoration:none; transition:background 0.12s;">
+        <a href="{{ route('site.register') }}" class="block w-full text-left px-3 py-2 rounded-lg text-[0.88rem] font-medium text-text-primary bg-transparent border-none cursor-pointer transition-colors duration-150 hover:bg-surface-secondary">
             Registrar
         </a>
     @endguest
 
     @auth
-        <span style="display:block; padding:0.5rem 0.75rem; font-size:0.82rem; color:var(--color-text-muted);">
+        <span class="block px-3 py-2 text-[0.82rem] text-text-muted">
             {{ auth()->user()->name }}
         </span>
-        <hr style="border:none; border-top:1px solid var(--color-border); margin:0.2rem 0;">
+        <hr class="border-t border-border my-1">
         <form action="{{ route('dashboard.logout') }}" method="POST">
             @csrf
-            <button type="submit" style="width:100%;">Sair</button>
+            <button type="submit" class="block w-full text-left px-3 py-2 rounded-lg text-[0.88rem] font-medium text-text-primary bg-transparent border-none cursor-pointer transition-colors duration-150 hover:bg-surface-secondary">Sair</button>
         </form>
     @endauth
 
-    <hr style="border:none; border-top:1px solid var(--color-border); margin:0.2rem 0;">
-    <a href="https://github.com/LuizBMJ/Projeto-Gerenciador-de-Habitos" target="_blank">
+    <hr class="border-t border-border my-1">
+    <a href="https://github.com/LuizBMJ/Projeto-Gerenciador-de-Habitos" target="_blank" class="block w-full text-left px-3 py-2 rounded-lg text-[0.88rem] font-medium text-text-primary bg-transparent border-none cursor-pointer transition-colors duration-150 hover:bg-surface-secondary">
         GitHub
     </a>
 

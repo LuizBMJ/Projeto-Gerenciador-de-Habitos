@@ -64,4 +64,42 @@ class Habit extends Model
         return $weeks;
     }
 
+    /**
+     * Calcula a sequência atual de dias consecutivos concluídos.
+     */
+    public function getCurrentStreak(): int
+    {
+        $logs = $this->habitLogs()
+            ->orderBy('completed_at', 'desc')
+            ->pluck('completed_at')
+            ->map(fn($date) => Carbon::parse($date)->startOfDay());
+
+        if ($logs->isEmpty()) {
+            return 0;
+        }
+
+        $today     = Carbon::today();
+        $yesterday = Carbon::yesterday();
+        $lastLog   = $logs->first();
+
+        // Se o último log não for hoje nem ontem, a sequência foi quebrada
+        if (!$lastLog->equalTo($today) && !$lastLog->equalTo($yesterday)) {
+            return 0;
+        }
+
+        $streak      = 0;
+        $currentDate = $lastLog->copy();
+
+        foreach ($logs as $logDate) {
+            if ($logDate->equalTo($currentDate)) {
+                $streak++;
+                $currentDate->subDay();
+            } else {
+                break;
+            }
+        }
+
+        return $streak;
+    }
+
 }

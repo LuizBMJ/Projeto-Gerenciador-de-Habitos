@@ -44,6 +44,11 @@ function searchBackend(search, list) {
     const loadMore    = document.getElementById('load-more');
     const loadAll     = document.getElementById('load-all-btn');
 
+    // Hide pagination buttons immediately when search starts
+    if (loadMore) loadMore.classList.add('hidden');
+    if (loadAll)  loadAll.classList.add('hidden');
+    if (noResults) noResults.classList.add('hidden');
+
     fetch(`${paginateUrl}?load_all=1&search=${encodeURIComponent(search)}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
@@ -51,6 +56,12 @@ function searchBackend(search, list) {
     .then(data => {
         list.innerHTML = '';
 
+        if (data.habits.length === 0) {
+            if (noResults) noResults.classList.remove('hidden');
+            return;
+        }
+
+        if (noResults) noResults.classList.add('hidden');
         const sorted = sortByRelevance(data.habits, search);
 
         sorted.forEach(habit => {
@@ -58,12 +69,14 @@ function searchBackend(search, list) {
             list.dispatchEvent(event);
         });
 
-        if (noResults) noResults.classList.toggle('hidden', data.habits.length > 0);
-
+        // Ensure buttons stay hidden during search results
         if (loadMore) loadMore.classList.add('hidden');
         if (loadAll)  loadAll.classList.add('hidden');
     })
-    .catch(e => console.error('Search failed:', e));
+    .catch(e => {
+        console.error('Search failed:', e);
+        if (loadMore) loadMore.classList.remove('hidden'); // Fallback on error
+    });
 }
 
 window.filterHabits = filterHabits;

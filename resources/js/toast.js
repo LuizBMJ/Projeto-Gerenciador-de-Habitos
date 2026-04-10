@@ -7,9 +7,9 @@ const TOAST_ICONS = {
 };
 
 const TOAST_STYLES = {
-    success: 'bg-green-100 border-green-400 text-green-700',
-    error:   'bg-red-100 border-red-400 text-red-700',
-    warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
+    success: 'toast-success',
+    error:   'toast-error',
+    warning: 'toast-warning',
 };
 
 // FUNCTION FOR JS
@@ -23,11 +23,7 @@ window.mostrarToast = function(tipo, mensagem) {
 
     if (toastTimeout) clearTimeout(toastTimeout);
 
-    toast.classList.remove(
-        'bg-green-100', 'border-green-400', 'text-green-700',
-        'bg-red-100',   'border-red-400',   'text-red-700',
-        'bg-yellow-100','border-yellow-400','text-yellow-700'
-    );
+    toast.classList.remove('toast-success', 'toast-error', 'toast-warning');
 
     toast.classList.add(...TOAST_STYLES[tipo].split(' '));
 
