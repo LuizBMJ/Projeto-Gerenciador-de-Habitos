@@ -22,6 +22,7 @@
     --color-brand-orange-hover: #FFB340;
     --color-brand-orange-light: #FFF4E5;
     --color-brand-orange-subtle:#FFFAF2;
+    --color-brand-orange-dark:  #4A2F00;
 
     /* Brand Dark */
     --color-brand-dark:         #1d1d1f;
@@ -107,6 +108,10 @@
     --color-border:             rgba(255, 255, 255, 0.08);
     --color-border-glass:       rgba(255, 255, 255, 0.08);
     --color-border-strong:      rgba(255, 255, 255, 0.15);
+
+    /* Brand Orange (Dark) */
+    --color-brand-orange-light: rgba(255, 159, 10, 0.15);
+    --color-brand-orange-subtle: rgba(255, 159, 10, 0.1);
 
     /* Toast – Success (dark) */
     --color-toast-success-bg:   rgba(21, 128, 61, 0.2);
@@ -312,6 +317,21 @@ body {
     max-width: 100%;
     overflow: hidden;
     font-family: var(--font-sans) !important;
+    --fc-border-color: var(--color-border);
+    --fc-button-bg-color: var(--color-surface);
+    --fc-button-border-color: var(--color-border-strong);
+    --fc-button-text-color: var(--color-text-secondary);
+    --fc-button-hover-bg-color: var(--color-surface-secondary);
+    --fc-button-hover-border-color: var(--color-border-strong);
+    --fc-button-active-bg-color: var(--color-brand-blue);
+    --fc-button-active-border-color: var(--color-brand-blue);
+    --fc-event-bg-color: var(--color-brand-blue);
+    --fc-event-border-color: var(--color-brand-blue);
+    --fc-event-text-color: #fff;
+    --fc-today-bg-color: var(--color-brand-orange-subtle);
+    --fc-neutral-bg-color: var(--color-surface-secondary);
+    --fc-page-bg-color: transparent;
+    --fc-now-indicator-color: var(--color-brand-orange);
 }
 
 .fc-view-harness {
@@ -327,7 +347,7 @@ body {
 .fc .fc-scrollgrid {
     width: 100% !important;
     border: 1px solid var(--color-border) !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     overflow: hidden;
 }
 
@@ -342,7 +362,7 @@ body {
 }
 
 .fc .fc-toolbar-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--color-text-primary);
     text-transform: capitalize;
@@ -351,19 +371,24 @@ body {
 
 .fc .fc-button {
     background: var(--color-surface) !important;
-    border: 1px solid var(--color-border-strong) !important;
+    border: 1px solid var(--color-border) !important;
     box-shadow: none !important;
     color: var(--color-text-secondary) !important;
-    border-radius: 7px !important;
-    padding: 0.3rem 0.7rem !important;
+    border-radius: 8px !important;
+    padding: 0.4rem 0.75rem !important;
     font-size: 0.8rem !important;
     font-weight: 500 !important;
-    transition: background 0.15s !important;
+    transition: all 0.2s !important;
 }
 
 .fc .fc-button:hover {
     background: var(--color-surface-secondary) !important;
     color: var(--color-text-primary) !important;
+    border-color: var(--color-border-strong) !important;
+}
+
+.fc .fc-button:focus {
+    box-shadow: 0 0 0 2px rgba(94, 92, 230, 0.2) !important;
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active {
@@ -372,8 +397,13 @@ body {
     border-color: var(--color-brand-blue) !important;
 }
 
+.fc .fc-button-primary:not(:disabled).fc-button-active:hover {
+    background: var(--color-brand-blue-hover) !important;
+    border-color: var(--color-brand-blue-hover) !important;
+}
+
 .fc .fc-col-header-cell {
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -390,7 +420,12 @@ body {
 
 .fc .fc-daygrid-day {
     cursor: pointer;
-    transition: background 0.25s;
+    transition: background 0.2s;
+    background: var(--color-surface-solid);
+}
+
+[data-theme='dark'] .fc .fc-daygrid-day {
+    background: var(--color-surface-solid);
 }
 
 .fc .fc-daygrid-day:hover {
@@ -398,14 +433,26 @@ body {
 }
 
 .fc .fc-daygrid-day-number {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--color-text-secondary);
-    padding: 5px 7px;
+    padding: 6px 8px;
+    margin: 2px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-number {
+    background: var(--color-surface-secondary);
+    color: var(--color-text-primary);
 }
 
 .fc .fc-day-today {
     background: var(--color-brand-orange-subtle) !important;
+}
+
+[data-theme='dark'] .fc .fc-day-today {
+    background: rgba(255, 159, 10, 0.15) !important;
 }
 
 .fc .fc-day-today .fc-daygrid-day-number {
@@ -414,20 +461,85 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 159, 10, 0.3);
+}
+
+.fc .fc-day-other .fc-daygrid-day-number {
+    color: var(--color-text-muted);
+    opacity: 0.6;
 }
 
 .fc-event {
     border: none !important;
-    border-radius: 4px !important;
-    font-size: 0.68rem !important;
+    border-radius: 6px !important;
+    font-size: 0.7rem !important;
     font-weight: 500 !important;
-    padding: 1px 5px !important;
+    padding: 2px 6px !important;
     box-shadow: none !important;
     cursor: default !important;
+    background: var(--color-brand-blue) !important;
+    transition: transform 0.15s, opacity 0.15s;
+}
+
+.fc-event:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+.fc-event-title {
+    font-weight: 500;
+}
+
+.fc .fc-daygrid-event-harness {
+    margin: 1px 2px !important;
+}
+
+.fc .fc-daygrid-more-link {
+    color: var(--color-brand-blue);
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+.fc .fc-popover {
+    background: var(--color-surface-solid) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.fc .fc-popover-header {
+    background: var(--color-surface-secondary) !important;
+    color: var(--color-text-primary) !important;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Calendar container dark mode support */
+[data-theme='dark'] .fc .fc-scrollgrid {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme='dark'] .fc .fc-scrollgrid td,
+[data-theme='dark'] .fc .fc-scrollgrid th {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme='dark'] .fc .fc-col-header-cell {
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(30, 30, 32, 0.8) !important;
+}
+
+[data-theme='dark'] .fc .fc-button {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme='dark'] .fc .fc-button:hover {
+    border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 /* ── Responsive ───────────────────────────────────────────── */

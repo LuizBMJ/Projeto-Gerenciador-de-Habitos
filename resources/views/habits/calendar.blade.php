@@ -2,13 +2,15 @@
     <main class="flex-1 py-8 px-5">
         <div class="w-full max-w-5xl mx-auto">
 
-            {{-- NAVBAR --}}
+            {{-- PAGE TABS NAVIGATION --}}
             <x-main-content.navbar />
 
 
-            {{-- HABIT SELECTOR --}}
+            {{-- HABIT FILTER SECTION --}}
+            {{-- Only show if user has at least 1 habit --}}
             <div class="my-6">
                 @if ($habits->count() >= 1)
+                    {{-- Header with title and sort button --}}
                     <div class="flex items-center justify-between gap-2">
                         <div class="flex flex-col gap-2">
                             <p class="text-[0.75rem] font-bold uppercase tracking-widest text-text-muted">
@@ -25,6 +27,8 @@
                                 </p>
                             @endif
                         </div>
+                        
+                        {{-- Sort order button (cycles through creation/alphabetical/most completed) --}}
                         <button
                             type="button"
                             onclick="toggleHabitOrder()"
@@ -35,22 +39,24 @@
                         </button>
                     </div>
                     
+                    {{-- Horizontal scrollable list of habit buttons --}}
                     <div class="relative w-full overflow-hidden">
-                        <div class="flex overflow-x-auto pb-2 scrollbar-none scroll-smooth">
-                            <div class="bg-surface/40 backdrop-blur-md border border-border-glass rounded-2xl p-3 sm:p-4 flex gap-2 sm:gap-2.5 w-max shadow-sm">
-                                {{-- BUTTON ALL --}}
+                        <div class="flex overflow-x-auto pb-2 scrollbar-none scroll-smooth -mx-1 px-1">
+                            <div class="bg-surface/40 backdrop-blur-md border border-border-glass rounded-xl md:rounded-2xl p-2 md:p-4 flex gap-2 md:gap-2.5 w-max shadow-sm">
+                                
+                                {{-- "All habits" button - only shows if user has 2+ habits --}}
                                 @if($habits->count() >= 2)
                                     <button
                                         type="button"
                                         data-habit
                                         data-all
                                         onclick="selectHabit(null, this)"
-                                        class="inline-flex hover:cursor-pointer items-center justify-center gap-1.5 font-semibold text-xs sm:text-sm px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all duration-300 whitespace-nowrap bg-transparent text-text-secondary border border-border-glass hover:bg-surface-secondary hover:text-text-primary active:scale-95 shadow-sm">
+                                        class="inline-flex hover:cursor-pointer items-center justify-center gap-2 font-semibold text-[0.875rem] md:text-sm px-4 md:px-4 py-2.5 md:py-2.5 rounded-lg md:rounded-full transition-all duration-300 whitespace-nowrap bg-transparent text-text-secondary border border-border-glass hover:bg-surface-secondary hover:text-text-primary active:scale-95 shadow-sm">
                                         Todos
                                     </button>
                                 @endif
 
-                                {{-- HABITS BUTTONS --}}
+                                {{-- Individual habit buttons - data attributes store info for sorting --}}
                                 @foreach ($habits as $habit)
                                     <button
                                         type="button"
@@ -60,7 +66,7 @@
                                         data-created="{{ $habit->created_at }}"
                                         data-completed="{{ $habit->habitLogs->count() }}"
                                         onclick="selectHabit({{ $habit->id }}, this)"
-                                        class="inline-flex hover:cursor-pointer items-center justify-center gap-1.5 font-semibold text-xs sm:text-sm px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all duration-300 whitespace-nowrap bg-transparent text-text-secondary border border-border-glass hover:bg-surface-secondary hover:text-text-primary active:scale-95 shadow-sm">
+                                        class="inline-flex hover:cursor-pointer items-center justify-center gap-2 font-semibold text-[0.875rem] md:text-sm px-4 md:px-4 py-2.5 md:py-2.5 rounded-lg md:rounded-full transition-all duration-300 whitespace-nowrap bg-transparent text-text-secondary border border-border-glass hover:bg-surface-secondary hover:text-text-primary active:scale-95 shadow-sm">
                                         {{ $habit->name }}
                                     </button>
                                 @endforeach
@@ -70,9 +76,10 @@
                 @endif
             </div>
 
-            {{-- CALENDAR --}}
+            {{-- CALENDAR SECTION --}}
+            {{-- FullCalendar is loaded here - JS initializes it --}}
             @if ($habits->count() >= 1)
-                <div class="bg-surface border border-border rounded-2xl p-5 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] w-full overflow-hidden">
+                <div class="bg-surface/60 backdrop-blur-md border border-border-glass rounded-xl md:rounded-2xl p-4 md:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] w-full overflow-hidden">
                     <div id="calendar" class="w-full"></div>
                 </div>
             @else
@@ -82,6 +89,7 @@
         </div>
     </main>
 
+    {{-- Load FullCalendar library from CDN --}}
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     @endpush

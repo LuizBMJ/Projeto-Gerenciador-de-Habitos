@@ -2,31 +2,32 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+// This is the User model - represents a person who uses the app
+// Each user can have many habits and habit logs
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+    // Use this trait to create users in tests
     use HasFactory;
 
+    // Fields that can be filled when creating a user
     protected $fillable = [
         'name',
         'email',
         'password',
-        'google_id',   
-        'avatar_url',  
+        'google_id',
+        'avatar_url',
     ];
-    
+
+    // Fields that are hidden when returning user data
     protected $hidden = ['password'];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Cast attributes to their proper types.
      */
     protected function casts(): array
     {
@@ -35,15 +36,15 @@ class User extends Authenticatable
         ];
     }
 
-    // Um usuario pode ter muitos hábitos
-
-    public function habits(): HasMany {
+    // Relationship: A user can have many habits
+    public function habits(): HasMany
+    {
         return $this->hasMany(Habit::class);
     }
 
-    // Um usuario pode ter muitos registros
-
-    public function habitLogs(): HasMany {
+    // Relationship: A user can have many habit logs (records of completed habits)
+    public function habitLogs(): HasMany
+    {
         return $this->hasMany(HabitLog::class);
     }
 }

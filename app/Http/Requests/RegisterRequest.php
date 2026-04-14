@@ -2,24 +2,19 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+// This handles validation for registration form data
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+    // Allow anyone to make this request
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
+    // Validation rules for the registration form
     public function rules(): array
     {
         return [
@@ -30,28 +25,29 @@ class RegisterRequest extends FormRequest
                 'min:8',
                 'max:60',
                 'confirmed',
-                'regex:/[A-Z]/',      
-                'regex:/[0-9]/',     
-                'regex:/[@$!%*#?&]/', 
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/',
             ],
         ];
     }
 
+    // Custom error messages
     public function messages(): array
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
-            'name.min' => 'O nome deve conter no mínimo 3 caracteres.',
-            'name.max' => 'O nome deve conter no máximo 255 caracteres.',
-            'name.string' => 'O nome deve ser um texto válido.',
-            
-            'email.required' => 'O campo email é obrigatório.',
-            'email.email' => 'O campo email deve ser um endereço de email válido.',
+            'name.required' => 'O campo de nome é obrigatorio.',
+            'name.min' => 'O campo de nome deve ter pelo menos 3 caracteres.',
+            'name.max' => 'O campo de nome deve ter no máximo 255 caracteres.',
+            'name.string' => 'O campo de nome deve ser um texto.',
+
+            'email.required' => 'O campo de email é obrigatorio.',
+            'email.email' => 'Por favor entre com um email valido.',
             'email.unique' => 'Este email já está em uso.',
-            
-            'password.required' => 'O campo senha é obrigatório.',
-            'password.min' => 'A senha deve conter no mínimo 6 caracteres.',
-            'password.max' => 'A senha deve conter no máximo 60 caracteres.',
+
+            'password.required' => 'O campo de senha é obrigatorio.',
+            'password.min' => 'O campo de senha deve ter pelo menos 8 caracteres.',
+            'password.max' => 'O campo de senha deve ter no máximo 60 caracteres.',
             'password.confirmed' => 'As senhas não coincidem.',
             'password.regex' => 'A senha deve conter letras maiúsculas, números e caracteres especiais.',
         ];
