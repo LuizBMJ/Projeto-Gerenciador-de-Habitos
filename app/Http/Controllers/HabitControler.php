@@ -27,7 +27,7 @@ class HabitControler extends Controller
             ->get();
         $habitCount = $habits->count();
 
-        return view('dashboard', compact('habits', 'habitCount'));
+        return view('habits.dashboard', compact('habits', 'habitCount'));
     }
 
     // Show the page to create a new habit
@@ -47,7 +47,7 @@ class HabitControler extends Controller
         if ($count >= 10) {
             return redirect()
                 ->route('dashboard.habits.index')
-                ->with('error', 'You have reached the limit of 10 habits.');
+                ->with('error', 'Você chegou ao limite de 10 hábitos.');
         }
 
         // Validate the data and create the habit
@@ -58,12 +58,12 @@ class HabitControler extends Controller
         if ($count + 1 === 10) {
             return redirect()
                 ->route('dashboard.habits.index')
-                ->with('warning', 'You reached the habits limit!');
+                ->with('warning', 'Você chegou ao limite hábitos!');
         }
 
         return redirect()
             ->route('dashboard.habits.index')
-            ->with('success', 'Habit created successfully!');
+            ->with('success', 'Hábito criado com sucesso!');
     }
 
     // Show the page to edit an existing habit
@@ -72,7 +72,7 @@ class HabitControler extends Controller
         // Make sure the user owns this habit
         $this->authorize('update', $habit);
 
-        return view('habits.edit', compact('habit'))->with('success', 'Habit created successfully!');
+        return view('habits.edit', compact('habit'))->with('success', 'Hábito atualizado com sucesso!');
     }
 
     // Update an existing habit
@@ -86,7 +86,7 @@ class HabitControler extends Controller
 
         return redirect()
             ->route('dashboard.habits.settings')
-            ->with('success', 'Habit updated successfully!');
+            ->with('success', 'Hábito atualizado com sucesso!');
     }
 
     // Delete a habit
@@ -100,7 +100,7 @@ class HabitControler extends Controller
 
         return redirect()
             ->route('dashboard.habits.index')
-            ->with('warning', 'Habit deleted successfully!');
+            ->with('warning', 'Hábito deletado com sucesso!');
     }
 
     // Show the settings page to manage habits
@@ -290,7 +290,7 @@ class HabitControler extends Controller
         if ($date->greaterThan($today)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot complete habits in the future.',
+                'message' => 'Não é possível completar hábitos no futuro.',
             ], 422);
         }
 

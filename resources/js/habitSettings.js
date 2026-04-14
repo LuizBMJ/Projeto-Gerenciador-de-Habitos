@@ -107,7 +107,7 @@ window.deleteSelectedHabits = async function() {
     
     // Check if anything is selected
     if (checked.length === 0) {
-        mostrarToast('error', 'No habit selected.');
+        mostrarToast('error', 'Nenhum hábito selecionado.');
         return;
     }
     
@@ -157,11 +157,11 @@ window.deleteSelectedHabits = async function() {
     
     // Show toast message based on results
     if (errorCount === 0) {
-        mostrarToast('success', `${successCount} habit(s) deleted!`);
+        mostrarToast('success', `${successCount} hábito(s) deletado(s)!`);
     } else if (successCount === 0) {
-        mostrarToast('error', 'Error deleting habits.');
+        mostrarToast('error', 'Erro ao deletar hábitos.');
     } else {
-        mostrarToast('warning', `${successCount} deleted, ${errorCount} with error.`);
+        mostrarToast('warning', `${successCount} deletado(s), ${errorCount} com erro.`);
     }
     
     // If all habits are deleted, show the empty state
