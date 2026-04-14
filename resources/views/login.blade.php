@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-bold text-text-primary tracking-[-0.02em] text-center mb-2">Bem-vindo de volta</h1>
             <p class="text-[0.95rem] text-text-secondary text-center mb-8">Insira seus dados para acessar sua conta.</p>
 
-            <form action="{{ route('auth.login') }}" method="POST">
+            <form action="{{ route('login.store') }}" method="POST">
                 @csrf
 
                 {{-- EMAIL --}}
@@ -60,7 +60,7 @@
 
             <p class="text-center text-[0.9rem] text-text-secondary mt-6">
                 Ainda não tem conta?
-                <a href="{{ route('site.register') }}" class="font-medium text-brand-blue no-underline hover:underline">Registre-se</a>
+                <a href="{{ route('register.index') }}" class="font-medium text-brand-blue no-underline hover:underline">Registre-se</a>
             </p>
 
             <div class="flex items-center gap-4 my-6 text-[0.8rem] font-medium text-text-muted uppercase tracking-widest">

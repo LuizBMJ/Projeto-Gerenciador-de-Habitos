@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class GoogleController extends Controller
 {
@@ -22,8 +23,11 @@ class GoogleController extends Controller
     // Google calls this back after the user authorizes
     public function callback()
     {
-        // Get user data from Google
-        $googleUser = Socialite::driver('google')->user();
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (InvalidStateException $e) {
+            return redirect()->route('google.redirect');
+        }
 
         $email = $googleUser->getEmail();
         $googleId = $googleUser->getId();
@@ -97,7 +101,7 @@ class GoogleController extends Controller
     public function showLink()
     {
         if (! session('google_pending')) {
-            return redirect()->route('site.login');
+            return redirect()->route('login.index');
         }
 
         return view('auth.link-account', [
@@ -111,13 +115,13 @@ class GoogleController extends Controller
         $pending = session('google_pending');
 
         if (! $pending) {
-            return redirect()->route('site.login');
+            return redirect()->route('login.index');
         }
 
         $user = User::where('email', $pending['email'])->first();
 
         if (! $user) {
-            return redirect()->route('site.login');
+            return redirect()->route('login.index');
         }
 
         $request->validate([

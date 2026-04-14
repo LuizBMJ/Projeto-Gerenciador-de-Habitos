@@ -12,10 +12,10 @@
         </p>
 
         <div class="flex gap-3 flex-wrap justify-center w-full">
-            <a href="{{ route('site.register') }}" class="inline-flex items-center justify-center gap-1.5 font-medium text-[1rem] leading-none px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap bg-brand-blue text-white shadow-[0_2px_4px_rgba(0,113,227,0.2)] hover:bg-brand-blue-hover hover:shadow-[0_4px_8px_rgba(0,113,227,0.3)]">
+            <a href="{{ route('register.index') }}" class="inline-flex items-center justify-center gap-1.5 font-medium text-[1rem] leading-none px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap bg-brand-blue text-white shadow-[0_2px_4px_rgba(0,113,227,0.2)] hover:bg-brand-blue-hover hover:shadow-[0_4px_8px_rgba(0,113,227,0.3)]">
                 Começar agora
             </a>
-            <a href="{{ route('site.login') }}" class="inline-flex items-center justify-center gap-1.5 font-medium text-[1rem] leading-none px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap bg-transparent text-text-secondary border border-border-strong hover:bg-surface-secondary hover:text-text-primary block text-center">
+            <a href="{{ route('login.index') }}" class="inline-flex items-center justify-center gap-1.5 font-medium text-[1rem] leading-none px-5 py-3 rounded-xl transition-all duration-200 whitespace-nowrap bg-transparent text-text-secondary border border-border-strong hover:bg-surface-secondary hover:text-text-primary block text-center">
                 Já tenho conta
             </a>
         </div>

@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-bold text-text-primary tracking-[-0.02em] text-center mb-2">Criar conta</h1>
             <p class="text-[0.95rem] text-text-secondary text-center mb-8">Preencha as informações para começar a registrar seus hábitos.</p>
 
-            <form action="{{ route('auth.register') }}" method="POST">
+            <form action="{{ route('register.store') }}" method="POST">
                 @csrf
 
                 {{-- NAME --}}
@@ -99,7 +99,7 @@
 
             <p class="text-center text-[0.9rem] text-text-secondary mt-6">
                 Já tem uma conta?
-                <a href="{{ route('site.login') }}" class="font-medium text-brand-blue no-underline hover:underline">Faça login</a>
+                <a href="{{ route('login.index') }}" class="font-medium text-brand-blue no-underline hover:underline">Faça login</a>
             </p>
 
             <div class="flex items-center gap-4 my-6 text-[0.8rem] font-medium text-text-muted uppercase tracking-widest">

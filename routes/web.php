@@ -1,44 +1,50 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HabitControler;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\GoogleController;
 
 /*
     WEBSITE
 */
 
-Route::get('/', [SiteController::class, 'index'])->name('site.index');
+Route::middleware('security.headers')->get('/', [SiteController::class, 'index'])->name('site.index');
 
 /*
     AUTH
 */
 
-Route::prefix('login')->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('site.login');
-    Route::post('/', [LoginController::class, 'login'])->name('auth.login');
-});
+Route::middleware('security.headers')
+    ->prefix('login')->name('login.')
+    ->group(function () {
+        Route::get('/', [LoginController::class, 'index'])->name('index');
+        Route::post('/', [LoginController::class, 'login'])->name('store')->middleware('throttle:5,1');
+    });
 
-Route::prefix('cadastro')->group(function () {
-    Route::get('/', [RegisterController::class, 'index'])->name('site.register');
-    Route::post('/', [RegisterController::class, 'store'])->name('auth.register');
-});
+Route::middleware('security.headers')
+    ->prefix('cadastro')->name('register.')
+    ->group(function () {
+        Route::get('/', [RegisterController::class, 'index'])->name('index');
+        Route::post('/', [RegisterController::class, 'store'])->name('store')->middleware('throttle:5,1');
+    });
 
-Route::prefix('auth/google')->name('auth.google.')->group(function () {
-    Route::get('redirect',  [GoogleController::class, 'redirect'])->name('redirect');
-    Route::get('callback',  [GoogleController::class, 'callback'])->name('callback');
-    Route::get('vincular',  [GoogleController::class, 'showLink'])->name('link');
-    Route::post('vincular', [GoogleController::class, 'link'])->name('link.store');
-});
+Route::middleware(['web', 'security.headers'])
+    ->prefix('auth/google')->name('auth.')
+    ->group(function () {
+        Route::get('redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
+        Route::get('callback', [GoogleController::class, 'callback'])->name('google.callback');
+        Route::get('vincular', [GoogleController::class, 'showLink'])->name('google.link');
+        Route::post('vincular', [GoogleController::class, 'link'])->name('google.link.store')->middleware('throttle:5,1');
+    });
 
 /*
     DASHBOARD (AUTH REQUIRED)
 */
 
-Route::middleware('auth')
+Route::middleware(['auth', 'security.headers'])
     ->prefix('dashboard')
     ->name('dashboard.')
     ->group(function () {

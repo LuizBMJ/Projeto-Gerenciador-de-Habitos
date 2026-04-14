@@ -68,7 +68,7 @@
                 </button>
 
                 <p class="text-center text-[0.9rem] text-text-secondary mt-6">
-                    <a href="{{ route('site.login') }}" class="font-medium text-brand-blue no-underline hover:underline">
+                    <a href="{{ route('login.index') }}" class="font-medium text-brand-blue no-underline hover:underline">
                         Voltar ao login
                     </a>
                 </p>
