@@ -10,12 +10,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
+COPY composer.json composer.lock* ./
+
+RUN composer install --no-dev --optimize-autoloader
+
 COPY . .
 
 RUN cp .env.example .env || true
 RUN php artisan key:generate
-
-RUN composer install --no-dev --optimize-autoloader
 
 RUN npm install && npm run build
 
