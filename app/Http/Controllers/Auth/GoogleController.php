@@ -26,7 +26,7 @@ class GoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
         } catch (InvalidStateException $e) {
-            return redirect()->route('google.redirect');
+            return redirect()->route('auth.google.redirect');
         }
 
         $email = $googleUser->getEmail();
