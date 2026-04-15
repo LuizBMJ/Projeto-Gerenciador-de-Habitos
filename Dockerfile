@@ -26,7 +26,6 @@ WORKDIR /app
 # Copiar projeto inteiro
 COPY . .
 
-# ⚠️ NÃO usar .env fixo (Render usa ENV variables)
 RUN rm -f .env
 
 # Instalar dependências PHP
@@ -46,4 +45,4 @@ EXPOSE 10000
 
 CMD php artisan migrate --force && \
     php artisan config:cache && \
-    php artisan serve --host=0.0.0.0 --port=10000
+    php artisan serve --host=0.0.0.0 --port=${PORT:-10000}

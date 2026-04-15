@@ -165,11 +165,12 @@ class HabitControler extends Controller
         $selectedYear = $year ?? Carbon::now()->year;
 
         // Find the earliest year with any habit logs
-        $minYear = HabitLog::query()
+        $minDateStr = HabitLog::query()
             ->where('user_id', Auth::id())
             ->whereNotNull('completed_at')
-            ->selectRaw('MIN(YEAR(completed_at)) as min_year')
-            ->value('min_year');
+            ->min('completed_at');
+            
+        $minYear = $minDateStr ? \Carbon\Carbon::parse($minDateStr)->year : null;
 
         $currentYear = Carbon::now()->year;
 
